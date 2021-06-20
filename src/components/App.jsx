@@ -3,29 +3,12 @@ import React, { useState } from "react";
 function App() {
   const [newListItem, setNewListItem] = useState("");
   const [listArray, setListArray] = useState([]);
-  const [listHtml, setListHtml] = useState("");
-
-  function populateList() {
-    for (var i = 0; i <= listArray.length; i++) {
-      if (listArray[i] !== undefined && listArray[i] !== null) {
-        const newHtml = "<li>" + listArray[i] + "</li>";
-
-        console.log("BEFORE populate::::::::::::::::::::", newHtml);
-        setListHtml((prevValue) => {
-          return prevValue + newHtml;
-        });
-        console.log("AFTER populate::::::::::::::::::::", listHtml);
-      }
-    }
-  }
 
   function handleClick() {
-    const newValue = newListItem;
     setListArray((prevValue) => {
-      return [...prevValue, newValue];
+      return [...prevValue, newListItem];
     });
     setNewListItem("");
-    populateList();
   }
 
   function handleChange(event) {
@@ -45,7 +28,11 @@ function App() {
         </button>
       </div>
       <div>
-        <ul>{listHtml}</ul>
+        <ul>
+          {listArray.map((todoItem) => (
+            <li>{todoItem}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
